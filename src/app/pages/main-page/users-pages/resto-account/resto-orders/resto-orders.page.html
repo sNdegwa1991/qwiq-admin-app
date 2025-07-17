@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title><ion-icon name="newspaper-outline"></ion-icon> Orders List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="totalOrders < 1" class="no_order">
+    <ion-list>
+    <h4>You currently don't have any order request</h4>
+    </ion-list>
+  </ion-card>
+  
+  <ion-list *ngIf="totalOrders > 0">
+  <ion-item>
+  <ion-badge slot="end" color="danger">Total: {{totalOrders}}</ion-badge>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="3">#</ion-col>
+      <!-- <ion-col>Date</ion-col> -->
+      <ion-col size="4">Cost</ion-col>
+      <ion-col size="3">Status</ion-col>
+      <ion-col size="2">View</ion-col>
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let p of myOrders">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3">{{p.order_id}}</ion-col>
+        <!-- <ion-col>{{p.date_placed}}</ion-col> -->
+        <ion-col size="4">{{p.amount | currency: 'Ksh'}}</ion-col>
+        <ion-col size="3" class="status-progress" *ngIf="p.status === '0'"><ion-badge color="medium">Pending</ion-badge></ion-col>
+        <ion-col size="3" class="status-progress" *ngIf="p.status === '1'"><ion-badge color="secondary">Upaid</ion-badge></ion-col>
+        <ion-col size="3" class="status-progress" *ngIf="p.status === '2'"><ion-badge color="success">Paid</ion-badge></ion-col>
+        <ion-col size="3" class="status-progress" *ngIf="p.status === '3'"><ion-badge color="danger">Cancelled</ion-badge></ion-col>
+        <ion-col size="3" class="status-progress" *ngIf="p.status === '4'"><ion-badge color="success">Delivered</ion-badge></ion-col>
+        <ion-col size="3" class="status-progress" *ngIf="p.status === '5'"><ion-badge color="tertiary">Reviewed</ion-badge></ion-col>
+        <ion-col size="2"><ion-button size="small" (click)="openOrder(p.order_id)"><ion-icon name="eye-off-outline"></ion-icon></ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  </ion-list>
+
+
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light"> Assign Parcel to Rider</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Parcel #{{orderNumber}} </ion-card-title>
+      <ion-card-subtitle>Select Rider to assign this Order</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-select label="Select Rider" placeholder="Select Rider To Assign" id="rider">
+          <ion-select-option *ngFor="let u of ridderUsers" value="{{u.user_id}}">{{u.full_name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-button
+         size="large"
+         expand="block"
+         shape="round"
+         color="danger"
+        (click)="assignParcelToRider()"
+       >
+ <ion-text class="buttonText">Assign</ion-text> 
+</ion-button>
+      </ion-item>
+    
+      
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

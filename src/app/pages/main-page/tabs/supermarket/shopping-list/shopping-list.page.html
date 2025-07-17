@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp;
+      <ion-icon name="cart-outline"></ion-icon> Unattend Shopping Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-grid *ngIf="shoppingList?.length > 0">
+      <ion-row>
+        <ion-col class="info-type"><ion-icon name="basket-outline"></ion-icon> Shopping Request ({{shoppingList?.length}})</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let p of shoppingList">
+        <ion-col size="3" (click)="viewShopping(p.order_id)">{{p.order_id}}</ion-col>
+        <ion-col size="6" (click)="viewShopping(p.order_id)">{{p.date_placed}}</ion-col>
+        <ion-col size="3" (click)="viewShopping(p.order_id)">{{p.supa}}</ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="shoppingList?.length < 1">
+      <ion-row>
+        <ion-col class="info-type"><ion-icon name="basket-outline"></ion-icon> Shopping Request</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12"> No Open Supermarket Request found</ion-col>
+      </ion-row>
+    </ion-grid>
+    </ion-item>
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    
+    <ion-title> 
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp; 
+      <ion-icon name="newspaper-outline"></ion-icon> {{statusTitle}} Orders
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item lines="full" *ngIf="myOrders?.length > 0">
+    <ion-col class="info-type"><ion-icon name="document-text-outline"></ion-icon> Orders</ion-col>
+  </ion-item>
+  <ion-item lines="full" *ngIf="myOrders?.length > 0">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="2"><b>#</b></ion-col>
+      <ion-col size="4"><b>Date</b></ion-col>
+      <ion-col size="3"><b>Cost</b></ion-col>
+      <ion-col size="3"><b>Prio.</b></ion-col>
+  
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let p of myOrders">
+    <ion-grid>
+      <ion-row (click)="openOrder(p.order_id)">
+        <ion-col size="2">{{p.order_id}}</ion-col>
+        <ion-col size="4">{{p.date_placed.substring(0, 17)}}</ion-col>
+        <ion-col size="3">{{p.amount | currency: 'Ksh'}}</ion-col>
+        <ion-col size="3"><sup><ion-badge size="small" fill="outline" color="secondary"><small style="font-size: xx-small;">{{p.time_frame}}</small></ion-badge></sup></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-grid *ngIf="myParcels > '0'">
+      <ion-item>
+        <ion-col class="info-type"><ion-icon name="cube-outline"></ion-icon> Parcels</ion-col>
+      </ion-item>
+      <ion-item class="table-head">
+        <ion-col size="2" ><b>#</b></ion-col>
+        <ion-col size="3" ><b>Fees</b></ion-col>
+        <ion-col size="4" ><b>Date</b></ion-col>
+        <ion-col size="3" ><b>Prio.</b></ion-col>
+      </ion-item>
+      <ion-item *ngFor="let p of myParcels">
+        <ion-col size="2" (click)="openParcel(p.parcel_id)">{{p.parcel_id}}</ion-col>
+        <ion-col size="3" (click)="openParcel(p.parcel_id)">{{p.delivery_fees | currency: 'KES '}}</ion-col>
+        <ion-col size="4" (click)="openParcel(p.parcel_id)">{{p.date_created}}</ion-col>
+        <ion-col size="3" (click)="openParcel(p.parcel_id)"><sup><ion-badge size="small" fill="outline" color="secondary"><small style="font-size: xx-small;">{{p.time_frame}}</small></ion-badge></sup></ion-col>
+
+      </ion-item>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item *ngIf="myParcels < 1 && myOrders?.length < 1">
+    No Order of this nature found
+  </ion-item>
+</ion-content>

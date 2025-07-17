@@ -1,0 +1,41 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light"> {{restoName}} Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Deposit</ion-card-title>
+      <ion-card-subtitle>Please provide the following</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item id="new-fees-holder">
+        <ion-label position="floating">Enter Amount to Deposit</ion-label>
+        <ion-input type="number" placeholder="e.g 200" id="amount"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select aria-label="fruit" placeholder="Select Mode of Payment" id="mode">
+          <ion-select-option value="mpesa">Mpesa</ion-select-option>
+          <ion-select-option value="cash">Cash</ion-select-option>
+          <ion-select-option value="bank">Bank Deposit</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item id="new-fees-holder">
+        <ion-label position="floating">Enter Reference Code</ion-label>
+        <ion-input placeholder="e.g WERT8776R" id="reference"></ion-input>
+      </ion-item>
+
+      <ion-item class="btn-deposit">
+        <ion-button expand="block" shape="round" (click)="saveDeposit()" color="success">Deposit</ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

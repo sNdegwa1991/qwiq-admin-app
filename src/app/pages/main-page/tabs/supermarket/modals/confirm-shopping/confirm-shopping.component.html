@@ -1,0 +1,29 @@
+<ion-card>
+  <ion-card-header>
+    CONFIRM THE SHOPPING LIST BEFORE SUBMISSION <b id="order_number">{{orderNumber}}</b>
+  </ion-card-header>
+
+  <ion-card-content>
+  <ion-card>
+  <ion-item lines="full" *ngFor="let p of shoppingcart; let i = index">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">{{i+1}}</ion-col>
+        <ion-col size="11">{{p.quantity}} {{p.brand}} {{p.name}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>    
+</ion-card>
+
+<ion-card>
+  <ion-button color="success" fill="outline" (click)="submitList()">
+    <ion-icon name="checkmark-done-outline"></ion-icon> Yes, Request
+  </ion-button>
+
+  <ion-button color="danger" fill="outline" (click)="reviewOrder()">
+    <ion-icon name="create-outline"></ion-icon> No, Review
+  </ion-button>
+</ion-card>
+
+  </ion-card-content>
+</ion-card>

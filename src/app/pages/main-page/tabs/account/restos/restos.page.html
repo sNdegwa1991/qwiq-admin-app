@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Restaurant Accounts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button slot="end" color="tertiary" (click)="addNewRestoUser()">Add</ion-button>
+    </ion-item>
+
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="5">Resto</ion-col>
+      <ion-col size="4">Account</ion-col>
+      <ion-col size="3">Status</ion-col>
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let u of restoUsers">
+    <ion-grid (click)="openUser(u.specialization)">
+      <ion-row>
+        <ion-col size="5">{{u.resto_name}}</ion-col>
+        <ion-col size="4">{{u.email}}</ion-col>
+        <ion-col size="3" *ngIf="u.status == 1"><ion-badge color="success">Active</ion-badge></ion-col>
+        <ion-col size="3" *ngIf="u.status == 0"><ion-badge color="danger">Inactive</ion-badge></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light">Rider: {{full_name}} Savings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+  <ion-item>
+    <b>Total Earnisng: {{totalSharing+totalCommision | currency: 'KES '}}</b>
+  </ion-item>
+  <ion-item>
+    Total Shares: {{totalSharing | currency: 'KES '}}
+  </ion-item>
+  <ion-item>
+    Total Commission: {{totalCommision | currency: 'KES '}}
+  </ion-item>
+  <ion-item>
+    Total Withdrawals: {{totalWidthdraw | currency: 'KES '}}
+  </ion-item>
+  <ion-item>
+    <b>Account Balance: <ion-badge color="success">{{balance | currency: 'KES '}}</ion-badge></b>
+  </ion-item>
+  </ion-card>
+  <ion-item>
+    Savings/Withdrawals History
+  </ion-item>
+  
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="5">Date</ion-col>
+      <ion-col size="2">KES</ion-col>
+      <ion-col size="3">Type</ion-col>
+      <ion-col size="2">Source</ion-col>
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let rs of riderSaving">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="5">{{rs.date_created}}</ion-col>
+        <ion-col size="2" >{{rs.amount+'.00'}}</ion-col>
+        <ion-col size="3">{{rs.description}}</ion-col>
+        <ion-col size="2">{{rs.source}}</ion-col>
+       
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  
+</ion-content>
+

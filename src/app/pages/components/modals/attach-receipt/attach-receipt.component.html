@@ -1,0 +1,31 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light"> Receipt Attachment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Order #{{orderNumber}} </ion-card-title>
+      <ion-card-subtitle>Attach an image of the shopping receipt</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+     <div class="ion-padding">
+      <input type="file" #fileinput name="image" (change)="selectedFile($event)" required="">
+     </div>
+     <div class="ion-padding">
+      <img [src]="imageUrl">
+     </div>
+     <div class="ion-padding" *ngIf="imageUrl != ''">
+      <ion-button shape="round" color="danger" (click)="onClick()">Upload</ion-button>
+     </div>
+      
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>
+

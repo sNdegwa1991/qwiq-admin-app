@@ -1,0 +1,151 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title> <ion-icon name="home-outline"></ion-icon> Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="shoppingList?.length > 0" (click)="openSupermarketShopping()" color="danger">
+    <ion-item color="danger"><ion-icon name="notifications-outline"></ion-icon> You have {{shoppingList?.length}} unattended Supermarket Requests</ion-item>
+  </ion-card>
+  <ion-card class="orders-statistics">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('0')">
+            
+              <ion-card-content>
+                <ion-badge color="danger">{{unconfirmed?.length+unconfirmedParcel?.length}}</ion-badge><br>
+                <strong>Unconfirmed</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('1')">
+
+              <ion-card-content>
+                <ion-badge color="primary">{{unpaid?.length+unpaidParcel?.length}}</ion-badge><br>
+                <strong>Unpaid</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('2')">
+            
+              <ion-card-content>
+                <ion-badge color="medium">{{undelivered?.length+undeliverParcel?.length}}</ion-badge><br>
+                <strong>Undelivered</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('5')">
+
+              <ion-card-content>
+                <ion-badge color="secondary">{{reviewed?.length+reviewParcel?.length}}</ion-badge><br>
+                <strong>Reviewed</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('10')">
+            
+              <ion-card-content>
+                <ion-badge color="tertiary">{{onway?.length+onwayParcel?.length}}</ion-badge><br>
+                <strong>Onway</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('4')">
+              <ion-card-content>
+                <ion-badge color="success">{{delivered?.length+deliverParcel?.length}}</ion-badge><br>
+                <strong>Delivered</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('3')">
+              <ion-card-content>
+                <ion-badge color="danger">{{cancelled?.length+cancelledParcel?.length}}</ion-badge><br>
+                <strong>Cancelled</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openSupermarketShopping()">
+              <ion-card-content>
+                <ion-badge color="danger">{{shoppingList?.length}}</ion-badge><br>
+                <strong>Supermarket</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <h3 class="title">Last 14 days</h3>
+
+  <div class="box box1">
+    <div class="details">
+      <h1>{{tot}}</h1>
+      <!-- <h2>All Orders</h2> -->
+    </div>
+
+    <apx-chart
+      [chart]="options.chart"
+      [series]="options.series"
+      [stroke]="options.stroke"
+      [markers]="options.markers"
+      [grid]="options.grid"
+      [tooltip]="options.tooltip"
+      [colors]="options.colors"
+    >
+  </apx-chart>
+  </div>
+
+  <div class="box box2">
+    <apx-chart
+      [chart]="barOptions.chart"
+      [series]="barOptions.series"
+      [labels]="barOptions.labels"
+      [grid]="barOptions.grid"
+      [xaxis]="barOptions.xaxis"
+      [yaxis]="barOptions.yaxis"
+      [title]="barOptions.title"
+      [legend]="barOptions.legend"
+      [dataLabels]="barOptions.dataLabels"
+    ></apx-chart>
+  </div>
+  
+  
+</ion-content>

@@ -1,0 +1,88 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp; 
+      <ion-icon name="newspaper-outline"></ion-icon> 
+      Order #{{orderNumber}}
+      <ion-badge class="hstastus" id="s1" *ngIf="aprovalStatus === '0'" color="medium">Pending</ion-badge>
+      <ion-badge class="hstastus" id="s2" *ngIf="aprovalStatus === '1'" color="secondary">Upaid</ion-badge>
+      <ion-badge class="hstastus" id="s3" *ngIf="aprovalStatus === '2'" color="tertiary">Marked for Delivery</ion-badge>
+      <ion-badge class="hstastus" id="s4" *ngIf="aprovalStatus === '3'" color="danger">Cancelled</ion-badge>
+      <ion-badge class="hstastus" id="s5" *ngIf="aprovalStatus === '4'" color="success">Delivered</ion-badge>
+
+      <ion-badge id="cstatus" color="secondary">Upaid</ion-badge>
+      <ion-badge id="cstatus2" color="success">Delivered</ion-badge>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="person-circle-outline"></ion-icon> Customer </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     <b> Name:</b> {{username}}<br><b>Phone:</b> {{phoneNumber}} <ion-button color="tertiary" size="small" (click)="callCustomer()"><ion-icon name="call-outline"></ion-icon> Call</ion-button>
+     <hr>
+     <b>Order Nature: </b> <ion-badge size="small" fill="outline" color="secondary"><small>{{time_frame}}</small></ion-badge><br>
+     <b>Exp. Time: </b> {{timelines}}
+     <ion-item *ngIf="aprovalStatus === '2'">
+      Ridder Assign: {{riderName}}
+     </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <div class="map" #map></div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger">
+        <ion-icon name="home-outline"></ion-icon>
+         Delivery Address </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-item>
+        Parcel ID: {{orderNumber}}
+      </ion-item>
+      <ion-item>
+        Description: {{parcelDetails}}
+      </ion-item>
+      <ion-item>
+        <img [src]="oIcon" /><b>From:</b> {{from}}
+      </ion-item>
+      <ion-item>
+        <img [src]="vertical" /> {{distance}}Kms
+      </ion-item>
+      <ion-item>
+        <img [src]="pIcon" /><b>To:</b> {{drop}}
+      </ion-item>
+      <ion-item>
+        Receiver: {{receiver}}
+      </ion-item>
+      <ion-item>
+        Date Placed: {{date_created}}
+      </ion-item>
+      <ion-item>
+        Delivery Fees: {{deliveryFees | currency: 'KES'}}
+      </ion-item>
+      <ion-button color="success" *ngIf="rider === '0'" (click)="assignRider()">Assign Rider</ion-button>
+      <ion-badge color="medium" *ngIf="rider != '0' && aprovalStatus === '2'">This order has been forwarded to rider for delivery</ion-badge>
+    </ion-card-content>
+  </ion-card>
+  
+       <ion-card id="action-buttons" *ngIf="aprovalStatus === '0' || aprovalStatus === '5'">
+        <ion-button size="small" color="success" (click)="confirmOrder(orderNumber)"><ion-icon name="checkmark-done-circle-outline"></ion-icon> Approve</ion-button>
+        <!-- <ion-button size="small" color="tertiary" style="float:center;" (click)="openModalReviewOrder(orderNumber)"><ion-icon name="create-outline"></ion-icon> Review</ion-button> -->
+        <ion-button size="small" color="danger" style="float:right;" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+       </ion-card>
+
+       <ion-card id="action-buttons" *ngIf="aprovalStatus === '1'">
+        <ion-button size="small" color="danger" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+       </ion-card>
+
+       <ion-card id="action-buttons2" *ngIf="aprovalStatus === '2'">
+        <ion-button size="small" color="success" (click)="confirmDelivery(orderNumber)"><ion-icon name="checkmark-done-circle-outline"></ion-icon> Confirm Delivery</ion-button>
+        <ion-button size="small" color="danger" style="float:right;" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+       </ion-card>
+</ion-content>

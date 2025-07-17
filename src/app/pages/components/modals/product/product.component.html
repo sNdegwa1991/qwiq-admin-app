@@ -1,0 +1,34 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light">Product View</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-card *ngFor="let p of product">
+      <div class="image-holder" >
+        <img [src]="imageURL+'/'+p?.image" />
+       </div>
+      <ion-card-header>
+        <ion-card-subtitle>{{p.category}}</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        {{p.sub_menu}}<br>
+        Restaurant:{{p.restaurant}}<br>
+        <b>Price: {{p.price}}</b><br>
+        <ion-item id="price-field">
+          <ion-label position="floating">Enter New Price</ion-label>
+          <ion-input type="number" id="new-price" placeholder="e.g 140"></ion-input>
+        </ion-item>
+        <ion-item>
+         <ion-button id="price-save" (click)="saveNewPrice()" color="success"><ion-icon name="save-outline"></ion-icon> Save</ion-button>
+         <ion-button id="price-edit" (click)="editPrice()" color="tertiary"><ion-icon name="create-outline"></ion-icon> Edit Price</ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "qwiqsoko-admin",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

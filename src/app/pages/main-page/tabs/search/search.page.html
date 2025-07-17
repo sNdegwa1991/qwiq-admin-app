@@ -1,0 +1,31 @@
+<ion-header translucent>
+  <ion-toolbar>
+   <ion-buttons slot="start" color="primary">
+     <ion-back-button></ion-back-button>
+   </ion-buttons>
+    <ion-title color="primary">
+      <ion-icon name="mail-open-outline"></ion-icon>
+      Inbox
+    </ion-title>
+  </ion-toolbar>
+  </ion-header>
+
+<ion-content #IonContent fullscreen="true">
+  <ion-item lines="full" *ngFor="let p of profileData">
+    <ion-grid>
+      <ion-row (click)="openProfile(p.user_id,p.name)">
+        <ion-col size="2"><ion-icon style="font-size: 2em;" color="primary" name="person-circle-outline"></ion-icon></ion-col>
+        <ion-col size="10"><b style="color: brown;">{{p.name}}</b><br>
+          <small *ngIf="p.text_in != '0'">{{p.text_in.substring(0,15)}} ...</small>
+          <small *ngIf="p.text_out != '0'">{{p.text_out.substring(0,15)}} ...</small>
+          <br>
+          <small style="color: brown;" *ngIf="p.text_in != '0'">{{p.date_in}}</small>
+          <small style="color: brown;" *ngIf="p.text_out != '0'">{{p.date_out}} </small>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item *ngIf="totalProfile < 1">
+    No Messages found
+  </ion-item>
+</ion-content>

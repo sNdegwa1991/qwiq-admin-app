@@ -1,0 +1,39 @@
+#delivery-location{
+    display: none;
+}
+#cstatus{
+  display: none;
+}
+#cstatus2{
+  display: none;
+}
+.hstastus{
+  display: inline;
+  float: right;
+}
+ion-header ion-title {
+  color: white;
+}
+ion-content {
+    --background: transparent;
+  }
+  
+  body {
+    background: transparent;
+  }
+
+.map {
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    width: 100%;
+    height: 60%;
+}
+
+.map.visible {
+    opacity: 1;
+}
+
+.progress-bar{
+    color: orangered;
+}

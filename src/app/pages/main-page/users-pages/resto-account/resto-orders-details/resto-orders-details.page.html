@@ -1,0 +1,74 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp; 
+      <ion-icon name="newspaper-outline"></ion-icon> 
+      Order #{{orderNumber}}
+      <ion-badge class="hstastus" id="s1" *ngIf="aprovalStatus === '0'" color="medium">Pending</ion-badge>
+      <ion-badge class="hstastus" id="s2" *ngIf="aprovalStatus === '1'" color="secondary">Upaid</ion-badge>
+      <ion-badge class="hstastus" id="s3" *ngIf="aprovalStatus === '2'" color="tertiary">Paid Undelivered</ion-badge>
+      <ion-badge class="hstastus" id="s4" *ngIf="aprovalStatus === '3'" color="danger">Cancelled</ion-badge>
+      <ion-badge class="hstastus" id="s5" *ngIf="aprovalStatus === '4'" color="success">Delivered</ion-badge>
+
+      <ion-badge id="cstatus" color="secondary">Upaid</ion-badge>
+      <ion-badge id="cstatus2" color="success">Delivered</ion-badge>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="basket"></ion-icon> Delivery Order</ion-card-title>
+    </ion-card-header> 
+    <ion-card-content>
+      <ion-card color="danger">
+        <b>Note to Kitchen:</b><br>
+        {{notes}}
+      </ion-card>
+      <ion-item lines="full" *ngFor="let p of cart" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+               {{p.sub_menu}}
+            </ion-col>
+           </ion-row>
+            <ion-row>
+              <ion-col size="3">
+                X{{p.quantity}} 
+              </ion-col>
+              <ion-col size="4">
+                
+              </ion-col>
+              <ion-col size="5" class="ion-text-end">
+                {{p.quantity * p.price | currency: 'Ksh '}}
+              </ion-col>
+          </ion-row>
+       
+        </ion-grid>
+       </ion-item>
+    
+       <ion-item lines="full">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+             <strong> Total:</strong>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+            <strong>  {{getTotal() | currency:'Ksh '}}</strong>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+       </ion-item>
+       </ion-card-content>
+       </ion-card>
+       <ion-card id="action-buttons" *ngIf="aprovalStatus === '0' || aprovalStatus === '5'">
+        <ion-button size="small" color="success" (click)="confirmOrder(orderNumber)"><ion-icon name="checkmark-done-circle-outline"></ion-icon> Approve</ion-button>
+        <ion-button size="small" color="tertiary" style="float:center;" (click)="openModalReviewOrder(orderNumber)"><ion-icon name="create-outline"></ion-icon> Review</ion-button>
+        <ion-button size="small" color="danger" style="float:right;" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+       </ion-card>
+
+</ion-content>

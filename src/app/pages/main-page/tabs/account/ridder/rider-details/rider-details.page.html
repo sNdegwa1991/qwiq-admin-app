@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rider: {{full_name}} 
+      <ion-button color="light" size="small" (click)="openProfile()">Profile</ion-button>
+      <ion-button color="light" size="small" (click)="opensavings()">Savings</ion-button></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+  <ion-item>
+    Total Deliveries: {{totalDelivery | currency: 'KES'}}
+  </ion-item>
+  <ion-item>
+    Total Shares: {{totalSharing | currency: 'KES'}}
+    </ion-item>
+    <ion-item>
+    Total Commision: {{totalCommission | currency: 'KES'}}
+  </ion-item>
+  </ion-card>
+  <ion-item>
+    Delivery History
+  </ion-item>
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="3" >Order</ion-col>
+      <ion-col size="6">Date</ion-col>
+      <ion-col size="3">Status</ion-col>
+    
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let u of riderOrders">
+    <ion-grid (click)="openRiderOrder(u.order_id)">
+      <ion-row>
+        <ion-col size="3">{{u.order_id}}</ion-col>
+        <ion-col size="6">{{u.date_placed}}</ion-col>
+        <ion-col size="3">
+          <ion-badge color="medium" *ngIf="u.status === '0'">Pending</ion-badge>
+          <ion-badge color="secondary" *ngIf="u.status === '1'">Unpaid</ion-badge>
+          <ion-badge color="success" *ngIf="u.status === '2'">Paid</ion-badge>
+          <ion-badge color="danger" *ngIf="u.status === '3'">Cancelled</ion-badge>
+          <ion-badge color="success" *ngIf="u.status === '4'">Delivered</ion-badge>
+          <ion-badge color="tertiary" *ngIf="u.status === '5'">Reviewed</ion-badge>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+</ion-content>

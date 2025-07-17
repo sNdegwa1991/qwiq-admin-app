@@ -1,0 +1,176 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp; 
+      <ion-icon name="newspaper-outline"></ion-icon> 
+      Order #{{orderNumber}}
+      
+      <ion-badge class="hstastus" id="s1" *ngIf="aprovalStatus === '0'" color="medium">Pending</ion-badge>
+      <ion-badge class="hstastus" id="s2" *ngIf="aprovalStatus === '1'" color="secondary">Upaid</ion-badge>
+      <ion-badge class="hstastus" id="s3" *ngIf="aprovalStatus === '2'" color="tertiary">Marked for Delivery</ion-badge>
+      <ion-badge class="hstastus" id="s4" *ngIf="aprovalStatus === '3'" color="danger">Cancelled</ion-badge>
+      <ion-badge class="hstastus" id="s5" *ngIf="aprovalStatus === '4'" color="success">Delivered</ion-badge>
+      <ion-badge id="cstatus" color="secondary">Upaid</ion-badge>
+      <ion-badge id="cstatus2" color="success">Delivered</ion-badge>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="person-circle-outline"></ion-icon> Customer </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     <b> Name:</b> {{username}}<br><b>Phone:</b> {{phoneNumber}} <ion-button color="tertiary" size="small" (click)="callCustomer()"><ion-icon name="call-outline"></ion-icon> Call</ion-button><br>
+     <hr>
+     <b>Order Nature: </b> <ion-badge size="small" fill="outline" color="secondary"><small>{{time_frame}}</small></ion-badge><br>
+     <b>Exp. Time: </b> {{timelines}}
+     <ion-item *ngIf="aprovalStatus === '2'">
+      <strong>Rider: </strong> {{riderName}}
+     </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <div class="map" #map></div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger">
+        <ion-icon name="home-outline"></ion-icon>
+         Delivery Address </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <b>From: </b>{{restaurantName}}<br>
+      <b>To</b><br>
+      {{loc}}<br>{{building}}<br>{{info}}<br>
+      <b>Distance: </b>{{DerDistance}}<br>
+      <ion-button color="success" fill="outline" *ngIf="stageStatus === '0' && aprovalStatus === '0'" (click)="pushToresto()">Send To Seller</ion-button>
+      <ion-badge color="danger" *ngIf="stageStatus === '1' && aprovalStatus === '0'">Waiting for confirmation from Resto</ion-badge>
+    </ion-card-content>
+  </ion-card>
+  
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="basket"></ion-icon> Delivery Order</ion-card-title>
+    </ion-card-header> 
+    <ion-card-content>
+      <ion-item lines="full" *ngFor="let p of cart" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+               {{p.sub_menu}}
+            </ion-col>
+           </ion-row>
+            <ion-row>
+              <ion-col size="3">
+                X{{p.quantity}} 
+              </ion-col>
+              <ion-col size="4">
+                
+              </ion-col>
+              <ion-col size="5" class="ion-text-end">
+                {{p.quantity * p.price | currency: 'Ksh '}}
+              </ion-col>
+          </ion-row>
+       
+        </ion-grid>
+       </ion-item>
+    
+       <ion-item lines="full">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+             <strong> Sub Total:</strong>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+            <strong>  {{getTotal() | currency:'Ksh '}}</strong>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col size="6">
+              Delivery:
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              {{deliveryFees | currency:'Ksh '}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let p of otherCosts">
+            <ion-col size="6">
+              {{p.charge_type}}
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              {{p.amount | currency:'Ksh '}}
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col size="6">
+             <strong> Total:</strong>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              <strong>{{deliveryFees+getTotal()+otherCostsTotal | currency:'Ksh '}}</strong>
+            </ion-col>
+          </ion-row>
+         
+        </ion-grid>
+       </ion-item>
+       </ion-card-content>
+       </ion-card>
+
+       <ion-card>
+        <ion-card-header>
+          <ion-card-title color="danger"><ion-icon name="wallet"></ion-icon> Order Payments </ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-item lines="full">
+            <ion-grid>
+              <ion-row *ngFor="let p of orderPayments">
+                <ion-col size="8">#{{p.payment_mode}}{{p.reference}}</ion-col>
+                <ion-col size="4">{{p.amount}}</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+      
+       <strong>Total Due : {{deliveryFees+getTotal()+otherCostsTotal | currency: 'KES'}}</strong> <br> 
+       <strong>Total Paid: {{getPaymentTotal() | currency: 'KES'}}</strong><br>
+       <strong>Balance : <ion-badge color="danger">{{(deliveryFees+getTotal()+otherCostsTotal)-getPaymentTotal() | currency: 'KES'}}</ion-badge></strong><br>
+       <ion-button size="small" fill="outline" color="secondary" (click)="acknowledePayment(orderNumber,customer_id)"><ion-icon name="cash-outline"></ion-icon> Acknowledge Payment</ion-button>
+       <ion-item *ngIf="receipt_img != 'no'">
+        <h6>Shopping Receipt</h6>
+       </ion-item>
+       <ion-item *ngIf="receipt_img != 'no'">
+        <img [src]="receiptUrl+'/'+receipt_img"/>
+       </ion-item>
+       
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-button size="small" fill="outline" color="info" (click)="attachShoppingReceipt(orderNumber)"><ion-icon name="receipt-outline"></ion-icon> Attach Shopping Receipt</ion-button>
+       </ion-card>
+
+       <ion-card id="action-buttons" *ngIf="aprovalStatus === '0' || aprovalStatus === '5'">
+        <ion-button size="small" fill="outline" color="success" (click)="confirmOrder(orderNumber)"><ion-icon name="checkmark-done-circle-outline"></ion-icon> Approve</ion-button>
+        <ion-button size="small" fill="outline" color="tertiary" style="float:center;" (click)="openModalReviewOrder(orderNumber)"><ion-icon name="create-outline"></ion-icon> Review</ion-button>
+        <ion-button size="small" fill="outline" color="danger" style="float:right;" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+       </ion-card>
+
+       <ion-card id="action-buttons" *ngIf="aprovalStatus === '1'">
+        <ion-button size="small" fill="outline" color="danger" style="float:right;" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+        <ion-button size="small" fill="outline" color="success" (click)="deliveryApproval(orderNumber)"><ion-icon name="bicycle-outline"></ion-icon> Aprove for Delivery</ion-button>
+       </ion-card>
+       <ion-card id="action-buttons2" *ngIf="aprovalStatus === '2' && rider ==='0'">
+        <ion-button size="small" fill="outline" color="success" (click)="assignOrderToRider(orderNumber)"><ion-icon name="bicycle-outline"></ion-icon> Assign to Rider</ion-button>
+       </ion-card>
+
+       <ion-card id="action-buttons2" *ngIf="aprovalStatus === '2'">
+        <ion-button size="small" color="success" (click)="confirmDelivery(orderNumber)"><ion-icon name="checkmark-done-circle-outline"></ion-icon> Confirm Delivery</ion-button>
+        <ion-button size="small" fill="outline" color="danger" style="float:right;" (click)="rejectOrder(orderNumber)"><ion-icon name="close-circle-outline"></ion-icon> Reject</ion-button>
+       </ion-card>
+
+</ion-content>

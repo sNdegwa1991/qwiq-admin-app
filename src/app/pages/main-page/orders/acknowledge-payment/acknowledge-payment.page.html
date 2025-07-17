@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;
+      <ion-icon name="card-outline"></ion-icon> Payment Acknowledgement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      #{{orderNumber}}
+    </ion-item>
+    <ion-item>
+      Customer: {{username}}
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item></ion-item>
+    <ion-item>
+      <input style="width: 100%;height: 50px;" required="" id="amount_paid" placeholder="Enter Amount Paid" class="controls" type="number">
+    </ion-item><br>
+    <ion-item>
+      <ion-item>
+        <ion-select label="Select Rider" placeholder="Mode of Payment" id="mode">
+          <ion-select-option value="Mpesa">Mpesa</ion-select-option>
+          <ion-select-option value="Cash">Bank Deposit</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-item><br>
+    <ion-item>
+      <input style="width:100%;height: 50px;" required="" id="reference" placeholder="Enter Reference" class="controls" type="text">
+    </ion-item><br>
+
+    <ion-item>
+      <input style="width:100%;height: 50px;" required="" id="description" placeholder="Enter Description" class="controls" type="text">
+    </ion-item>
+    <ion-item>
+      <ion-button color="danger" (click)="savePayment()"> <ion-icon name="save-outline"></ion-icon> <ion-text class="buttonText">Save</ion-text></ion-button>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

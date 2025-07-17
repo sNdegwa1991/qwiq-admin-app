@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary"><ion-icon name="person-circle-outline"></ion-icon> {{user}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="shoppingList?.length > 0" (click)="openSupermarketShopping()" color="danger">
+    <ion-item color="danger"><ion-icon name="notifications-outline"></ion-icon> You have {{shoppingList?.length}} unattended Supermarket Requests</ion-item>
+  </ion-card>
+  <ion-card class="orders-statistics">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('0')">
+            
+              <ion-card-content>
+                <ion-badge color="medium">{{unconfirmed?.length}}</ion-badge><br>
+                <strong>Unconfirmed <br>Orders</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('1')">
+
+              <ion-card-content>
+                <ion-badge color="secondary">{{unpaid?.length}}</ion-badge><br>
+                <strong>Unpaid<br> Orders</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('2')">
+            
+              <ion-card-content>
+                <ion-badge color="success">{{undelivered?.length}}</ion-badge><br>
+                <strong>Marked for <br>Delivery</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('10')">
+
+              <ion-card-content>
+                <ion-badge color="tertiary">{{onway?.length}}</ion-badge><br>
+                <strong>Onway<br> Orders</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('3')">
+
+              <ion-card-content>
+                <ion-badge color="danger">{{cancelled?.length}}</ion-badge><br>
+                <strong>Cancelled<br> Orders</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+         
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-card (click)="openOrders('4')">
+              <ion-card-content>
+                <ion-badge color="success">{{delivered?.length}}</ion-badge><br>
+                <strong>Delivered<br> Orders</strong>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <div>
+              <ion-card (click)="openMySavings()">
+              
+                <ion-card-content>
+                  <ion-badge color="primary"><ion-icon name="card-outline"></ion-icon></ion-badge><br>
+                  <strong>My <br>Savings</strong>
+                </ion-card-content>
+              </ion-card>
+            </div>
+        </ion-col>
+        <ion-col>
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="danger" size="small" (click)="logout()">
+     <div class="cart-length"><ion-icon name="log-out-outline"></ion-icon></div>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

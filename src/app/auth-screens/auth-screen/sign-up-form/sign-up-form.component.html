@@ -1,0 +1,102 @@
+<form [formGroup]="form" class="ion-margin">
+  <div class="ion-margin-vertical">
+    <ion-item lines="full">
+      <ion-input formControlName="fname" type="text" placeholder="Enter Full Name"></ion-input>
+    </ion-item>
+    <ion-text 
+    color="danger"
+    *ngIf="!form.get('fname')?.valid && form.get('fname')?.touched">
+    <ion-text class="error" *ngIf="form.get('fname')?.hasError('required')">
+      * Please Enter Full Name
+    </ion-text>
+    </ion-text>
+  </div>
+  
+  <div class="ion-margin-vertical">
+    <ion-item lines="full">
+      <ion-input formControlName="phone" type="number" placeholder="Phone Number e.g 07******"></ion-input>
+    </ion-item>
+    <ion-text 
+    color="danger"
+    *ngIf="!form.get('phone')?.valid && form.get('phone')?.touched">
+    <ion-text class="error" *ngIf="form.get('phone')?.hasError('required')">
+      * Please Enter Full Phone number
+    </ion-text>
+    </ion-text>
+  </div>
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="full">
+      <ion-input formControlName="email" type="email" placeholder="Enter Email"></ion-input>
+    </ion-item>
+    <ion-text 
+    color="danger"
+    *ngIf="!form.get('email')?.valid && form.get('email')?.touched">
+    <ion-text class="error" *ngIf="form.get('phone')?.hasError('required') && form.get('phone')">
+      * Please enter phone number
+   </ion-text>
+    </ion-text>
+  </div>
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="full">
+      <ion-icon
+      [name]="type ? 'eye' : 'eye-off'"
+      slot="end"
+      color="dark"
+      (click)="changeType()">
+      </ion-icon>
+      <ion-input formControlName="password" [type]="type ? 'password' :'text'"
+       placeholder="Enter password"></ion-input>
+    </ion-item>
+    <ion-text
+    color="danger"
+    *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
+    <ion-text class="error" *ngIf="form.get('password')?.hasError('required') && form.get('password')">
+       * Please enter a password
+    </ion-text>
+    </ion-text>
+  </div>
+
+  <div class="ion-margin-vertical">
+    <ion-item lines="full">
+      <ion-icon
+      [name]="type ? 'eye' : 'eye-off'"
+      slot="end"
+      color="dark"
+      (click)="changeType()">
+      </ion-icon>
+      <ion-input formControlName="password1" [type]="type ? 'password' :'text'"
+       placeholder="Confirm password"></ion-input>
+    </ion-item>
+    <ion-text
+    color="danger"
+    *ngIf="!form.get('password1')?.valid && form.get('password1')?.touched">
+    <ion-text class="error" *ngIf="form.get('password1')?.hasError('required') && form.get('password1')">
+       * Please confirm password
+    </ion-text>
+    </ion-text>
+  </div>
+</form>
+
+<div class="ion-margin-horizontal">
+<ion-button
+size="large"
+expand="block"
+shape="round"
+color="danger"
+(click)="onSubmit()"
+>
+ <ion-text class="buttonText">Sign Up</ion-text> 
+</ion-button>
+</div>
+
+<p class="ion-text-center">
+  <ion-text color="medium">OR</ion-text>
+</p>
+
+<p class="ion-text-center">
+<ion-icon name="logo-facebook" color="tertiary"></ion-icon>
+<ion-icon name="logo-twitter" color="secondary"></ion-icon>
+<ion-icon name="logo-google" color="danger"></ion-icon>
+</p>

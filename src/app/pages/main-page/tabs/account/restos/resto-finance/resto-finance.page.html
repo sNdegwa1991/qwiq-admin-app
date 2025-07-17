@@ -1,0 +1,50 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="fast-food-outline"></ion-icon> {{restoName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngIf="balance >=0">
+      <b>Current Bal: <ion-badge color="success">{{balance | currency: "KES"}}</ion-badge></b>
+      <ion-button slot="end" color="danger" (click)="depositCash()">Deposit</ion-button>
+    </ion-item>
+    <ion-item *ngIf="balance < 0">
+      <b>Current Bal: <ion-badge color="danger">{{balance | currency: "KES"}}</ion-badge></b>
+    </ion-item>
+    <ion-item><h5> Transations</h5></ion-item>
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="4">Ref</ion-col>
+      <ion-col size="2">In</ion-col>
+      <ion-col size="2">Out</ion-col>
+      <ion-col size="4">Purpose</ion-col>
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let u of financeData">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">{{u.ref}}</ion-col>
+        <ion-col size="2">{{u.money_in}}</ion-col>
+        <ion-col size="2">{{u.money_out}}</ion-col>
+        <ion-col size="4">{{u.narration}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="4"><b>Total:</b></ion-col>
+      <ion-col size="2">{{totalMoneyIn}}</ion-col>
+      <ion-col size="2">{{totalMoneyOut}}</ion-col>
+    
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

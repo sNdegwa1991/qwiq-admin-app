@@ -1,0 +1,37 @@
+<ion-router-outlet></ion-router-outlet>
+<ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()" *ngIf="role == 1">
+  <ion-tab-bar slot="botton">
+    <ion-tab-button tab="home">
+      <ion-icon [name]="selectedTab == 'home' ? 'home' : 'home-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="order">
+      <ion-icon [name]="selectedTab == 'order' ? 'newspaper' : 'newspaper-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="products">
+      <ion-icon [name]="selectedTab == 'cart' ? 'cart' : 'cart-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="search">
+      <ion-icon [name]="selectedTab == 'search' ? 'search' : 'chatbubbles-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="account">
+      <ion-icon [name]="selectedTab == 'account' ? 'ellipsis-horizontal' : 'ellipsis-horizontal-outline'"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+
+<ion-tabs #tabs_resto (ionTabsDidChange)="setCurrentTab_resto()" *ngIf="role == 2">
+  <ion-tab-bar slot="botton">
+    <ion-tab-button tab="resto-home">
+      <ion-icon [name]="selectedTab == 'resto-home' ? 'home' : 'home-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="resto-orders">
+      <ion-icon [name]="selectedTab == 'resto-orders' ? 'newspaper' : 'newspaper-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="resto-products">
+      <ion-icon [name]="selectedTab == 'resto-products' ? 'basket' : 'basket-outline'"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="resto-account-set">
+      <ion-icon [name]="selectedTab == 'resto-account-set' ? 'person-circle' : 'person-circle-outline'"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

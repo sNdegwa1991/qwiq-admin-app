@@ -1,0 +1,118 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp; 
+      <ion-icon name="newspaper-outline"></ion-icon> 
+      Order #{{orderNumber}}
+      <ion-badge class="hstastus" id="s1" *ngIf="aprovalStatus === '0'" color="medium">Pending</ion-badge>
+      <ion-badge class="hstastus" id="s2" *ngIf="aprovalStatus === '1'" color="secondary">Upaid</ion-badge>
+      <ion-badge class="hstastus" id="s3" *ngIf="aprovalStatus === '2'" color="tertiary">Marked for Delivery</ion-badge>
+      <ion-badge class="hstastus" id="s4" *ngIf="aprovalStatus === '3'" color="danger">Cancelled</ion-badge>
+      <ion-badge class="hstastus" id="s5" *ngIf="aprovalStatus === '4'" color="success">Delivered</ion-badge>
+
+      <ion-badge id="cstatus" color="secondary">Upaid</ion-badge>
+      <ion-badge id="cstatus2" color="success">Delivered</ion-badge>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="person-circle-outline"></ion-icon> Customer <ion-button color="primary" size="small" (click)="callCustomer()"><ion-icon name="call-outline"></ion-icon> Call</ion-button></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+     <b> Name:</b> {{username}}<br><b>Phone:</b> {{phoneNumber}}
+      <br>
+      <ion-button *ngIf="aprovalStatus === '2'" color="danger" size="small" (click)="startDeliver()"><ion-icon name="bicycle-outline"></ion-icon> Start Delivery</ion-button>
+      <ion-button *ngIf="aprovalStatus === '10'" color="success" size="small" (click)="completeDeliver()"><ion-icon name="checkmark-outline"></ion-icon> Complete Delivery</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <div class="map" #map></div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger">
+        <ion-icon name="home-outline"></ion-icon>
+         Delivery Items </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <b>From: </b>{{restaurantName}}<br>
+      <b>To</b><br>
+      {{loc}}<br>{{building}}<br>{{info}}<br>
+      <b>Distance: </b>{{DerDistance}}
+    </ion-card-content>
+  </ion-card>
+  
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="basket"></ion-icon> Delivery Order</ion-card-title>
+    </ion-card-header> 
+    <ion-card-content>
+      <ion-item lines="full" *ngFor="let p of cart" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+               {{p.sub_menu}}
+            </ion-col>
+           </ion-row>
+            <ion-row>
+              <ion-col size="3">
+                <!-- X{{p.quantity}}  -->
+              </ion-col>
+              <ion-col size="4">
+                
+              </ion-col>
+              <ion-col size="5" class="ion-text-end">
+                *{{p.quantity}} 
+              </ion-col>
+          </ion-row>
+       
+        </ion-grid>
+       </ion-item>
+    
+       <ion-item lines="full">
+        <ion-grid>
+          <!-- <ion-row>
+            <ion-col size="6">
+             <strong> Total:</strong>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+            <strong>  {{getTotal() | currency:'Ksh '}}</strong>
+            </ion-col>
+          </ion-row> -->
+    
+          <ion-row>
+            <ion-col size="6">
+              Delivery Fees:
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              {{deliveryFees | currency:'Ksh '}}
+            </ion-col>
+          </ion-row>
+
+          <!-- <ion-row *ngFor="let p of otherCosts">
+            <ion-col size="6">
+              {{p.charge_type}}
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              {{p.amount | currency:'Ksh '}}
+            </ion-col>
+          </ion-row> -->
+    
+          <!-- <ion-row>
+            <ion-col size="6">
+             <strong> Total:</strong>
+            </ion-col>
+            <ion-col size="6" class="ion-text-end">
+              <strong>{{deliveryFees+getTotal()+otherCostsTotal | currency:'Ksh '}}</strong>
+            </ion-col>
+          </ion-row> -->
+         
+        </ion-grid>
+       </ion-item>
+       </ion-card-content>
+       </ion-card>
+</ion-content>

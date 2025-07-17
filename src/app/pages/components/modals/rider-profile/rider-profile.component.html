@@ -1,0 +1,34 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light"> {{full_name}} Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      
+    </ion-item>
+    <ion-item>
+      Email: {{details.email}}
+    </ion-item>
+    <ion-item>
+      Phone: {{details.phone}}
+    </ion-item>
+    <ion-item>
+      Addres: {{details.rider_address}}
+    </ion-item>
+    <ion-item>
+      Boda: {{details.reg_no}}
+    </ion-item>
+    <ion-item>
+      Dl Status: {{details.dl_status}}
+    </ion-item>
+    
+  </ion-card>
+  
+</ion-content>
+

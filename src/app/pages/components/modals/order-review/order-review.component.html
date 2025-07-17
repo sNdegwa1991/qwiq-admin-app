@@ -1,0 +1,157 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button color="light" (click)="cancel()"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title color="light"><ion-icon name="create-outline"></ion-icon> Order {{orderNumber}} Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="role === '1'">
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="person-circle-outline"></ion-icon> Customer </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     <b> Name:</b> {{username}}<br><b>Phone:</b> {{phoneNumber}}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="danger"><ion-icon name="basket"></ion-icon> Order Details</ion-card-title>
+    </ion-card-header> 
+    <ion-card-content>
+      <ion-item lines="full" class="review-instruct">
+        <h5>Remove the items that are not available</h5>
+    </ion-item>
+      <ion-item *ngIf="catLength < 1">
+        <h5>No Item found in this order</h5>
+      </ion-item>
+      <ion-list *ngIf="catLength > 0">
+      <ion-item lines="full" *ngFor="let p of cart" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+               {{p.sub_menu}}
+            </ion-col>
+            <ion-col size="2">
+            {{p.quantity}}
+           </ion-col>
+           <ion-col size="2">
+            <ion-button color="success" fill="clear" (click)="increaseQuantity(p.detail_id,p.sub_menu,p.quantity)">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+           </ion-col>
+           <ion-col size="2">
+            <ion-button color="danger" fill="clear" (click)="reviewOrder(p.detail_id,p.sub_menu,p.quantity)"><ion-icon name="remove-circle-outline"></ion-icon></ion-button>
+          </ion-col>
+           </ion-row>
+        
+        </ion-grid>
+       </ion-item>
+
+       <ion-item *ngIf="role === '1'">
+        Delivery Fees: <b>{{deliveryFees}}</b> <ion-button (click)="openFeesEntry()" color="light">Edit</ion-button>
+       </ion-item>
+
+       <ion-list *ngIf="role === '1'">
+       <ion-item lines="full" *ngFor="let p of otherCosts" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="8">
+               {{p.charge_type}}
+            </ion-col>
+            <ion-col size="2">
+            {{p.amount}}
+           </ion-col>
+           <ion-col size="2">
+            <ion-button color="danger" fill="outline" (click)="reviewOtherCharge(p.id,p.charge_type)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+          </ion-col>
+           </ion-row>
+        
+        </ion-grid>
+       </ion-item>
+       </ion-list>
+
+       
+
+       <ion-item id="new-fees-holder">
+        <ion-label position="floating">Enter New Delivery Fees</ion-label>
+        <ion-input placeholder="e.g 200" id="new-delivery"></ion-input>
+        <ion-button color="success" (click)="saveNewFees()">Save New Fees</ion-button>
+      </ion-item>
+
+      <ion-list *ngIf="proposeLength > 0">
+        <label>Suggested Products (Ensure yo remove unailable products from order above)</label>
+        <ion-item lines="full" *ngFor="let p of proposedItems" class="ion-text-wrap">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                 {{p.sub_menu}}
+              </ion-col>
+             </ion-row>
+          </ion-grid>
+         </ion-item>
+       </ion-list>
+
+      <ion-item *ngIf="role === '1'">
+        <ion-button color="tertiary" fill="outline" (click)="addAnotherCharge()">Add Another Cost/Discount</ion-button>
+      </ion-item>
+      <ion-item id="add-other-cahrges">
+        <ion-label position="floating">Charge Type/Discount(-)</ion-label>
+        <ion-input placeholder="e.g Shopping or Discount" id="charge_type"></ion-input>
+
+        <ion-label position="floating">Enter Amount Charged</ion-label>
+        <ion-input placeholder="e.g 50 or -50" id="amount_charged"></ion-input>
+        <ion-button color="success" fill="outline" (click)="saveNewCharge()">Save New Charge</ion-button>
+      </ion-item>
+       </ion-list>
+        
+       <ion-list>
+        <ion-icon name="bag-handle-outline"></ion-icon> Add/Propose Item
+        <div class = "item">
+          <label class = "item item-input-wrapper">
+             <i class = "icon ion-edit placeholder-icon"></i>
+             <input type = "text" placeholder = "Search..." (keyup)="searchProducts($event)" class="form-control input-search"/>
+          </label>
+       </div>
+       </ion-list>
+       <ion-list *ngIf="prodLen > 0">
+        <ion-grid>
+          <ion-row>
+         <ion-col size="6" *ngFor="let p of genProducts">
+         <ion-card class="menu-card">
+           <div class="image-holder" >
+             <img [src]="imageURL+'/'+p?.image"/>
+             <!-- <img src="{{imageURL+'/'+restaurant?.image}}"/> -->
+           </div>
+           <ion-item lines="none">
+             <ion-label class="ion-text-wrap">
+               <p>
+              
+                 {{(p?.sub_menu)}}
+              
+               </p>
+               <p>
+                 <ion-text color="medium">
+                   {{p?.menu}}
+                 </ion-text>
+                 <p><b>{{p.price | currency: 'KES '}}</b></p>
+            
+               <ion-text>
+                <ion-button fill="outline" color="primary" fill="outline" expand="block" size="small" (click)="saveProductReview(p.id,orderNumber,p?.sub_menu)">Suggest</ion-button>
+                <ion-button fill="outline" color="danger" fill="outline" expand="block" size="small" (click)="addProduct(p.id,orderNumber,p.price,p.sub_menu)">Add</ion-button>
+               </ion-text>
+             </ion-label>
+           </ion-item>
+         </ion-card>
+         </ion-col>
+       </ion-row>
+         </ion-grid>
+       </ion-list>
+       </ion-card-content>
+       </ion-card>
+
+</ion-content>

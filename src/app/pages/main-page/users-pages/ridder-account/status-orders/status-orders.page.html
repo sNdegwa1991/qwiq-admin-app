@@ -1,0 +1,35 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    
+    <ion-title> 
+      <ion-icon (click)="backHome()" name="chevron-back-outline"></ion-icon>
+      &nbsp;&nbsp;&nbsp; 
+      <ion-icon name="newspaper-outline"></ion-icon> {{statusTitle}} Orders
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item lines="full">
+    <ion-grid>
+    <ion-row class="table-head">
+      <ion-col size="2">#</ion-col>
+      <!-- <ion-col>Date</ion-col> -->
+      <ion-col size="4">Customer</ion-col>
+      <ion-col size="4">Tel</ion-col>
+      <ion-col size="2">View</ion-col>
+    </ion-row>
+    </ion-grid>
+    </ion-item>
+    <ion-item lines="full" *ngFor="let p of myOrders">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">{{p.order_id}}</ion-col>
+        <!-- <ion-col>{{p.date_placed}}</ion-col> -->
+        <ion-col size="4">{{p.u_name}}</ion-col>
+        <ion-col size="4">{{p.u_phone}}</ion-col>
+        <ion-col size="2"><ion-button size="small" (click)="openOrder(p.order_id)"><ion-icon name="eye-off-outline"></ion-icon></ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+</ion-content>
